@@ -11,9 +11,9 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN chown -R nobody:users /opt/NzbDrone \
+RUN chown -R root:root /opt/NzbDrone \
   ; mkdir -p /volumes/config/sonarr /volumes/completed /volumes/media \
-  && chown -R nobody:users /volumes
+  && chown -R root:root /volumes
 
 EXPOSE 8989
 EXPOSE 9898
@@ -26,9 +26,9 @@ RUN chmod +x /start.sh
 
 ADD develop/sonarr-update.sh /sonarr-update.sh
 RUN chmod 755 /sonarr-update.sh \
-  && chown nobody:users /sonarr-update.sh
+  && chown root:root /sonarr-update.sh
 
-USER nobody
+USER root
 WORKDIR /opt/NzbDrone
 
 ENTRYPOINT ["/start.sh"]
